@@ -7,9 +7,8 @@ export class LoginDto {
   @IsEmail()
   email!: string;
 
-  @ApiProperty({ example: 'password123' })
+  @ApiProperty({ example: 'SecurePass123!' })
   @IsString()
-  @MinLength(6)
   password!: string;
 }
 
@@ -35,13 +34,44 @@ export class RegisterDto {
   @IsEmail()
   email!: string;
 
-  @ApiProperty({ example: 'password123' })
+  @ApiProperty({
+    example: 'SecurePass123!',
+    description:
+      'Password must be at least 12 characters and contain uppercase, lowercase, numbers, and special characters',
+  })
   @IsString()
-  @MinLength(6)
+  @MinLength(12)
   password!: string;
 
   @ApiProperty({ enum: UserRole, example: UserRole.FRONTDESK, required: false })
   @IsEnum(UserRole)
   @IsOptional()
   role?: UserRole;
+}
+
+export class RefreshTokenDto {
+  @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' })
+  @IsString()
+  refreshToken!: string;
+}
+
+export class PasswordResetRequestDto {
+  @ApiProperty({ example: 'user@example.com' })
+  @IsEmail()
+  email!: string;
+}
+
+export class PasswordResetDto {
+  @ApiProperty({ example: 'reset_token_from_email' })
+  @IsString()
+  resetToken!: string;
+
+  @ApiProperty({
+    example: 'NewSecurePass123!',
+    description:
+      'Password must be at least 12 characters and contain uppercase, lowercase, numbers, and special characters',
+  })
+  @IsString()
+  @MinLength(12)
+  newPassword!: string;
 }

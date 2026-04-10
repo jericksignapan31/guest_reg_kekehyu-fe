@@ -33,6 +33,27 @@ export class User {
   @Column({ type: 'enum', enum: UserRole, default: UserRole.FRONTDESK })
   role!: UserRole;
 
+  @Column({ type: 'int', default: 0 })
+  failedLoginAttempts!: number;
+
+  @Column({ type: 'boolean', default: false })
+  isAccountLocked!: boolean;
+
+  @Column({ type: 'timestamp', nullable: true })
+  lockedUntil?: Date;
+
+  @Column({ type: 'varchar', nullable: true })
+  passwordResetToken?: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  passwordResetExpires?: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  lastLoginAt?: Date;
+
+  @Column({ type: 'boolean', default: false })
+  emailVerified!: boolean;
+
   @CreateDateColumn()
   createdAt!: Date;
 
