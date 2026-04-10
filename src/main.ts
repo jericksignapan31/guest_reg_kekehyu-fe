@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { DefaultAdminSeeder } from './common/seeders/default-admin.seeder';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -72,5 +73,9 @@ async function bootstrap() {
   console.log(`🚀 Application is running on: http://localhost:${port}`);
   console.log(`📚 API documentation available at: http://localhost:${port}/api/docs`);
   console.log(`🔒 Security features enabled: Helmet, Rate Limiting, Password Validation, Account Lockout`);
+
+  // Seed default admin account
+  const seeder = app.get(DefaultAdminSeeder);
+  await seeder.seed();
 }
 bootstrap();

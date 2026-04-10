@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ReservationModule } from './modules/reservations/reservation.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { OcrModule } from './modules/ocr/ocr.module';
+import { DefaultAdminSeeder } from './common/seeders/default-admin.seeder';
 
 @Module({
   imports: [
@@ -46,8 +47,9 @@ import { OcrModule } from './modules/ocr/ocr.module';
     ReservationModule,
     AdminModule,
     OcrModule,
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DefaultAdminSeeder],
 })
 export class AppModule {}
